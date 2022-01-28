@@ -33,6 +33,7 @@ namespace Persistence
             // configure entities repositories
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
 
 

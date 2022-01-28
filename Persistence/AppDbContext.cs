@@ -14,6 +14,7 @@ namespace Persistence
         }
 
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<AppUser> Users { get; set; }
 
 
@@ -53,7 +54,6 @@ namespace Persistence
                         break;
                     case EntityState.Modified:
                         entry.Entity.LastModifiedDate = DateTime.Now;
-                        entry.Entity.LastModifiedBy = userId;
                         break;
                 }
             }

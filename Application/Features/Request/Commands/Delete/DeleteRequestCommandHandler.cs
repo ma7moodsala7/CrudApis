@@ -23,6 +23,9 @@ namespace Application.Features.Request.Commands.Delete
             if (requestToDelete == null)
                 throw new NotFoundException(nameof(Domain.Entities.Request), request.RequestId);
 
+            if (requestToDelete.User.Id != request.UserId)
+                throw new BadRequestException("You can only delete your own requests");
+
             await _requestRepository.DeleteAsync(requestToDelete).ConfigureAwait(false);
 
             return Unit.Value;

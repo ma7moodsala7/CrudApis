@@ -5,10 +5,12 @@ namespace Application.Features.Request.Commands.Delete
 {
     public class DeleteRequestCommand : IRequest
     {
-        public DeleteRequestCommand(Guid id)
+        public DeleteRequestCommand(Guid userId, Guid requestId)
         {
-            RequestId = id;
+            UserId = userId;
+            RequestId = requestId;
         }
+        public Guid UserId { get; set; }
         public Guid RequestId { get; set; }
     }
 }

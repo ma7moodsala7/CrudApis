@@ -6,7 +6,6 @@ namespace Domain.Common
     {
         Guid CreatedBy { get; set; }
         DateTime CreatedDate { get; set; }
-        Guid? LastModifiedBy { get; set; }
         DateTime? LastModifiedDate { get; set; }
     }
 }

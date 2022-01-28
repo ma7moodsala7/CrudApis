@@ -21,7 +21,7 @@ namespace Application.Features.Request.Queries.GetById
         public async Task<RequestByIdVm> Handle(GetRequestByIdQuery request, CancellationToken cancellationToken)
         {
 
-            var requestById = await _requestRepository.GetByIdAsync(request.Id).ConfigureAwait(false);
+            var requestById = await _requestRepository.GetRequestDetailsAsync(request.Id).ConfigureAwait(false);
 
             if (requestById == null)
                 throw new NotFoundException(nameof(Domain.Entities.Request), request.Id);

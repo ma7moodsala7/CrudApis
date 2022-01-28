@@ -34,7 +34,7 @@ namespace Application.Features.Request.Commands.Update
 
             //check if the updated request related to the same user who created it.
             if (requestToUpdate.CreatedBy != request.UserId)
-                throw new BadRequestException("only the creator of this who is able to delete it.");
+                throw new BadRequestException("only the creator of this who is able to update it.");
 
             requestToUpdate = _mapper.Map<Domain.Entities.Request>(request.UpdateRequestDto);
 

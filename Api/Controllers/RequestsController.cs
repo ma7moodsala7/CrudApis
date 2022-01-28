@@ -19,12 +19,10 @@ namespace Api.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly Guid _authenticatedUserId;
 
         public RequestsController(IMediator mediator)
         {
             _mediator = mediator;
-            _authenticatedUserId = User != null ? new Guid(User.FindFirstValue("uid")) : Guid.Empty;
         }
 
         #region Queries
@@ -53,10 +51,11 @@ namespace Api.Controllers
         #region Commands
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] CreateRequestDto createRequestDto)
         {
             return StatusCode(201, 
-                await _mediator.Send(new CreateRequestCommand(_authenticatedUserId, createRequestDto))
+                await _mediator.Send(new CreateRequestCommand(new Guid(User.FindFirstValue("uid")), createRequestDto))
                     .ConfigureAwait(false));
         }
 
@@ -64,14 +63,14 @@ namespace Api.Controllers
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRequestDto updateRequestDto)
         {
             return Ok(
-                await _mediator.Send(new UpdateRequestCommand(_authenticatedUserId, id, updateRequestDto))
+                await _mediator.Send(new UpdateRequestCommand(new Guid(User.FindFirstValue("uid")), id, updateRequestDto))
                     .ConfigureAwait(false));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _mediator.Send(new DeleteRequestCommand(id)).ConfigureAwait(false);
+            await _mediator.Send(new DeleteRequestCommand(new Guid(User.FindFirstValue("uid")),id)).ConfigureAwait(false);
             return NoContent();
         }
 

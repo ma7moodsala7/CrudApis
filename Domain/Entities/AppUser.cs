@@ -14,5 +14,7 @@ namespace Domain.Entities
         public byte[] PasswordSalt { get; set; }
 
         public ICollection<Request> Requests { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

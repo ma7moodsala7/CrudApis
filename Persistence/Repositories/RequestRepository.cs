@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Threading.Tasks;
 using Application.Contracts.Persistence;
 using Domain.Entities;
@@ -13,6 +12,13 @@ namespace Persistence.Repositories
         {
         }
 
+        public Task<Request> GetRequestDetailsAsync(Guid id)
+        {
+            return DbContext.Requests
+                .Include(r => r.Comments)
+                .Include(r => r.User)
+                .FirstOrDefaultAsync(r => r.Id == id);
+        }
 
     }
 }
